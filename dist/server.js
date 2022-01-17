@@ -40,5 +40,5 @@ const fileUpload = (req) => {
     }
 };
 let PORT = 3000;
-app.listen(PORT);
+app.listen(process.env.PORT || PORT);
 //# sourceMappingURL=server.js.map
