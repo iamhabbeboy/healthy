@@ -6,8 +6,10 @@ const path = require('path');
 const app = express();
 const file = require('express-fileupload');
 app.use(file());
+app.use(express.static('views'));
+app.use('/images', express.static('images'));
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './views/index.html'));
+    res.sendFile('index.html');
 });
 app.post('/classifier', (req, res) => {
     try {
@@ -25,7 +27,7 @@ const fileUpload = (req) => {
         }
         const image = req.files.webcam;
         const fileName = image.name;
-        const path = `${__dirname}/images/${fileName}`;
+        const path = `/images/${fileName}`;
         image.mv(path).then((err) => {
             if (err) {
                 throw new Error('Unable to move file');
