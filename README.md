@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started - TensorFlow.js
 
 Error: export TF_CPP_MIN_LOG_LEVEL=2
@@ -31,3 +32,6 @@ Run the example and see the model output:
 Please see `package.json` for details on how the `predict` script runs the example.
 
 If you are on MacOs Catalina, you may run into errors with installation. There is [documentation](https://www.npmjs.com/package/@tensorflow/tfjs-node/v/2.0.0-rc.3) that provides instructions on what to check to get past the issue.
+=======
+# healthy
+>>>>>>> a1135bfba7a3ad6d042af7a35d5f7f3b39f794a9
