@@ -4,8 +4,9 @@ const path = require('path');
 const app = express();
 const file = require('express-fileupload');
 app.use(file());
-app.use(express.static('views'))
-app.use('/images', express.static('images'))
+
+app.use(express.static('public'))
+// app.use('/images', express.static('images'))
 
 app.get('/', (req: any, res: any) => {
     res.sendFile('index.html');

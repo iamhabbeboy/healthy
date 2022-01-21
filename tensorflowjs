@@ -4,48 +4,54 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Healthy</title>
+        <title>Document</title>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"
+            integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
     </head>
     <body>
-        <button id="get-access">Get access to camera</button>
-        <button id="capture">Capture</button>
-        <video
-            id="webcam"
-            autoplay
-            playsinline
-            width="640"
-            height="480"
-        ></video>
-        <p>&nbsp;</p>
-        <canvas
-            id="canvas"
-            class="d-none"
-            width="100"
-            height="100"
-        ></canvas>
-        <!-- <img id="preview" width="100" height="100"/> -->
-        <audio id="snapSound" src="audio/snap.wav" preload="auto"></audio>
-        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-        <script>
-        const webcamElement = document.getElementById('webcam');
-        const canvasElement = document.getElementById('canvas');
-        const snapSoundElement = document.getElementById('snapSound');
-        const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
-        // document.getElementById('get-access').onclick(function() {
-            webcam.start()
-            .then(result =>{
-                console.log("webcam started");
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        // })
+        <div class="w-6/12 m-auto text-center py-10">
+            <div>
+                <h2 class="text-gray-800" style="font-size: 3.3em;">Healthy</h2>
+                <p class="my-3">Lorem ipsum dolor sit.</p>
+                <p>
+                    Response:
+                    <span id="response"></span>
+                </p>
+                <div id="my_camera" style="width:320px; height:240px;"></div>
+                <button class="bg-blue-500 p-4 rounded-lg hover:bg-blue-700 font-bold text-gray-200" onClick="init()">Open Camera</button>
+                <button class="bg-blue-500 p-4 rounded-lg hover:bg-blue-700 font-bold text-gray-200" onClick="take_snapshot()">Click to capture</button>
+            </div>
+            <div id="results"></div>
+            <script language="JavaScript">
+              function init() {
+                // Webcam.set('constraints', {
+                //     width: 320,
+                //     height: 240,
+                //     image_format: 'jpeg',
+                //     jpeg_quality: 90,
+                //     facingMode: "environment"
+                // });
+                Webcam.set('constraints',{
+                    facingMode: "environment"
+                });
+                Webcam.attach( '#my_camera' );
+            };
+             
+             function take_snapshot() {
+                Webcam.snap( function(data_uri) {
+                    document.getElementById('results').innerHTML = 
+                     '<img src="'+data_uri+'"/>';
 
-        document.querySelector('#capture').onclick = function() {
-            console.log("sdflskdjf")
-            let picture = webcam.snap();
-            // document.querySelector('#preview').src = picture;
-        }
-        </script>
-    </body>
-</html>
+                     Webcam.upload( data_uri, '/classifier', function(code, text) {
+                       document.querySelector('#response').innerHTML = text
+                      });
+                 } );
+             }
+            </script>
+        </body>
+    </html>
